@@ -16,6 +16,10 @@
       "allow": [{ "path": "$APPDATA/**" }]
     },
     {
+      "identifier": "fs:allow-read-file",
+      "allow": [{ "path": "$APPDATA/**" }]
+    },
+    {
       "identifier": "fs:allow-read-text-file",
       "allow": [{ "path": "$APPDATA/**" }]
     },

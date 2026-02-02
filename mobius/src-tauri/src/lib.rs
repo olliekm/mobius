@@ -1,3 +1,5 @@
+use tauri::Manager;
+
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
 #[tauri::command]
 fn greet(name: &str) -> String {
@@ -10,6 +12,12 @@ pub fn run() {
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_fs::init())
         .invoke_handler(tauri::generate_handler![greet])
+        .setup(|app| {
+            let window = app.get_webview_window("main").unwrap();
+            window_vibrancy::apply_vibrancy(&window, window_vibrancy::NSVisualEffectMaterial::UnderWindowBackground, None, None)
+                .expect("Unsupported platform! 'apply_vibrancy' is only supported on macOS");
+            Ok(())
+        })
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

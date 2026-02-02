@@ -10,20 +10,18 @@
     "frontendDist": "../build"
   },
   "app": {
+    "macOSPrivateApi": true,
     "windows": [
       {
         "title": "mobius",
         "width": 800,
         "height": 600,
-        "decorations": false
+        "decorations": false,
+        "transparent": true
       }
     ],
     "security": {
-      "csp": null,
-      "assetProtocol": {
-        "enable": true,
-        "scope": ["$APPDATA/**"]
-      }
+      "csp": null
     }
   },
   "bundle": {

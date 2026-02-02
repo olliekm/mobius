@@ -4,7 +4,9 @@
   import CommandPalette from "$lib/components/CommandPalette.svelte";
   import SuggestionQueue from "$lib/components/SuggestionQueue.svelte";
   import SessionModal from "$lib/components/SessionModal.svelte";
+  import GlossaryEditor from "$lib/components/GlossaryEditor.svelte";
   import { notes, activeNoteId } from "$lib/stores/notes";
+  import { glossary } from "$lib/stores/glossary";
   import { onMount } from "svelte";
   import { getCurrentWindow } from "@tauri-apps/api/window";
 
@@ -28,6 +30,7 @@
 
   onMount(() => {
     notes.init();
+    glossary.init();
   });
 
   function handleNewNote() {
@@ -61,7 +64,7 @@
 
 <svelte:window on:keydown={handleKeydown} />
 
-<div class="flex flex-col h-screen w-full bg-deepest">
+<div class="flex flex-col h-screen w-full bg-deepest" style="border-radius: 10px; overflow: hidden;">
   <!-- svelte-ignore a11y-no-static-element-interactions -->
   <div class="h-10 shrink-0 flex items-center justify-between px-4" on:mousedown={startDrag}>
     <div class="flex items-center gap-3">
@@ -97,7 +100,11 @@
   />
 
   <div class="flex-1 flex flex-col min-w-0">
-    <NoteEditor bind:editing={noteEditing} />
+    {#if activeView === "glossary"}
+      <GlossaryEditor bind:editing={noteEditing} />
+    {:else}
+      <NoteEditor bind:editing={noteEditing} on:navigateGlossary={() => (activeView = "glossary")} />
+    {/if}
     <SuggestionQueue />
   </div>
   </div>
