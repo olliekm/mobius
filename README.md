@@ -27,8 +27,9 @@ Some of the features being implemented:
 4. Session based learning, decide on a goal or topic for the session. Focus on learning that topic and the AI will prompt you to form connections and correct logical inconsistencies.
 5. The glossary is a interconnected concept within **mobius**. When learning new concepts, it is often useful to define concepts in your own words, we have a dedicated glossary editor where you can write these definition. When a definition is added to the glossary, you can easily insert these definitions through inline suggestions.
 
-<img width="1102" height="819" alt="image" src="https://github.com/user-attachments/assets/fe1f0ec6-ed8a-4484-8e26-3a581abc794a" />
+<img width="846" height="646" alt="image" src="https://github.com/user-attachments/assets/5592fc3e-26ac-40a6-9c78-d0e2f54841f3" />
 
+You can see the glossary feature in action!
 
 ## License
 
