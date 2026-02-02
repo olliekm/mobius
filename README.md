@@ -3,7 +3,7 @@
 
 # mobius
 
-A tauri-based corss-platform "native" notetaking app.
+A tauri-based cross-platform "native" notetaking app.
 
 ### Why?
 
