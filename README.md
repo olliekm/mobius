@@ -1,0 +1,21 @@
+# mobius
+
+A tauri-based corss-platform "native" notetaking app.
+
+### Why?
+
+The goal of **mobius** is to create an alternative to other notetaking applications that are stuck in the past.
+Now with LLMs, we can outsource much of the origizational labor. This means more time focused on learning new topics and forming meaninnful connections between them.
+
+### How does mobius seeks to solve notetaking?
+
+A minimalistic notetaking experience. No AI slop shoved in the face of the user. Instead, AI is used to augement your experience in the background.
+An ambient environment for notetaking. 
+
+Some of the features being implemented:
+1. Automated note connection forming.
+2. Automated clustering of topics and notes.
+3. Content dumping with intelligent parsing to augement existing notes and create more meaningful connections.
+4. Session based learning, decide on a goal or topic for the session. Focus on learning that topic and the AI will prompt you to form connections and correct logical inconsistencies.
+5. The glossary is a interconnected concept within **mobius**. When learning new concepts, it is often useful to define concepts in your own words, we have a dedicated glossary editor where you can write these definition. When a definition is added to the glossary, you can easily insert these definitions through inline suggestions.
+
