@@ -1,3 +1,6 @@
+
+![](https://github.com/olliekm/mobius/blob/main/mobius/src-tauri/icons/Square150x150Logo.png?raw=true)
+
 # mobius
 
 A tauri-based corss-platform "native" notetaking app.
