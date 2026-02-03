@@ -12,7 +12,7 @@ A smart & performant notetaking app.
 The goal of **mobius** is to create an alternative to other notetaking applications that are stuck in the past.
 Now with LLMs, we can outsource much of the origizational labor. This means more time focused on learning new topics and forming meaninnful connections between them.
 
-<img width="1102" height="819" alt="image" src="https://github.com/user-attachments/assets/b42132a7-2436-4cbd-87cb-81cd61c52f17" />
+<img width="912" height="712" alt="image" src="https://github.com/user-attachments/assets/aff196fe-e8ee-4bf0-b23c-9c4114fe7453" />
 
 
 ## How does mobius seeks to solve notetaking?
@@ -27,7 +27,7 @@ Some of the features being implemented:
 4. Session based learning, decide on a goal or topic for the session. Focus on learning that topic and the AI will prompt you to form connections and correct logical inconsistencies.
 5. The glossary is a interconnected concept within **mobius**. When learning new concepts, it is often useful to define concepts in your own words, we have a dedicated glossary editor where you can write these definition. When a definition is added to the glossary, you can easily insert these definitions through inline suggestions.
 
-<img width="846" height="646" alt="image" src="https://github.com/user-attachments/assets/5592fc3e-26ac-40a6-9c78-d0e2f54841f3" />
+<img width="1824" height="1424" alt="image" src="https://github.com/user-attachments/assets/517400aa-d5e9-4d31-b721-c131a6577325" />
 
 You can see the glossary feature in action!
 
