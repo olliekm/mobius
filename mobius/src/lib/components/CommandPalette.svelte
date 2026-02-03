@@ -4,8 +4,6 @@
   export let open = false;
   export let onClose: () => void = () => {};
   export let onNewNote: () => void = () => {};
-  export let onStartSession: () => void = () => {};
-
   let query = "";
   let inputEl: HTMLInputElement;
   let selectedIndex = 0;
@@ -20,7 +18,6 @@
 
   $: actions = [
     { id: "new", label: "New note", section: "Actions", shortcut: "\u2318N", action: onNewNote },
-    { id: "session", label: "Start session", section: "Actions", shortcut: "\u2318\u21e7S", action: onStartSession },
   ] as PaletteItem[];
 
   $: noteItems = $notes.map((n) => ({

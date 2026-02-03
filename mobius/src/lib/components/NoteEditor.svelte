@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount, onDestroy, createEventDispatcher } from "svelte";
+  import { onMount, onDestroy, createEventDispatcher, tick } from "svelte";
   import { notes, activeNoteId } from "$lib/stores/notes";
   import { marked, type TokenizerExtension, type RendererExtension } from "marked";
   import katex from "katex";
@@ -12,9 +12,11 @@
   import { defaultKeymap, history, historyKeymap } from "@codemirror/commands";
   import { languages } from "@codemirror/language-data";
   import { autocompletion, type CompletionContext, type CompletionResult } from "@codemirror/autocomplete";
-  import { search, searchKeymap, openSearchPanel } from "@codemirror/search";
+  import { search, searchKeymap } from "@codemirror/search";
   import { glossaryEntries, type GlossaryEntry } from "$lib/stores/glossary";
   import { get } from "svelte/store";
+  import { HighlightStyle, tags } from "@codemirror/highlight";
+  import { defaultHighlightStyle } from "@codemirror/language";
 
   export let editing = false;
   const dispatch = createEventDispatcher<{ navigateGlossary: string }>();
@@ -107,6 +109,9 @@
         changes: { from: 0, to: editorView.state.doc.length, insert: content },
       });
     }
+    // Auto-focus editor so user can start typing immediately
+    // Use tick to ensure DOM is fully updated after reactive changes
+    tick().then(() => requestAnimationFrame(() => editorView?.focus()));
   }
 
   function scheduleSave() {
@@ -235,6 +240,20 @@
       const items = e.clipboardData?.items;
       if (!items) return false;
 
+      // Auto-format pasted URLs as markdown links
+      const text = e.clipboardData?.getData("text/plain")?.trim();
+      if (text && /^https?:\/\/\S+$/.test(text)) {
+        e.preventDefault();
+        const { from, to } = view.state.selection.main;
+        const selected = view.state.sliceDoc(from, to);
+        const md = selected ? `[${selected}](${text})` : `[${text}](${text})`;
+        view.dispatch({
+          changes: { from, to, insert: md },
+          selection: { anchor: from + md.length },
+        });
+        return true;
+      }
+
       let hasImage = false;
       for (const item of items) {
         if (item.type.startsWith("image/")) {
@@ -282,6 +301,14 @@
   });
 
   // Dark theme
+
+
+  const myHighlightStyle = HighlightStyle.define([
+    ...defaultHighlightStyle.specs,
+    { tag: tags.link, color: "#007bff", textDecoration: "underline" },
+    { tag: tags.url, color: "#007bff", fontStyle: "italic" }
+  ])
+
   const darkTheme = EditorView.theme({
     "&": {
       backgroundColor: "var(--bg-deepest)",
@@ -323,6 +350,9 @@
     },
     ".cm-activeLineGutter": {
       backgroundColor: "transparent",
+    },
+    ".cm-link": {
+      textDecoration: "underline",
     },
   }, { dark: true });
 
@@ -478,6 +508,7 @@
       extensions: [
         darkTheme,
         tabKeymap,
+        // myHighlightStyle,
         keymap.of([...defaultKeymap, ...historyKeymap, ...searchKeymap]),
         history(),
         search(),
@@ -558,6 +589,8 @@
   function mountEditor(node: HTMLDivElement) {
     editorContainer = node;
     createEditor(content);
+    // Focus immediately so user can start typing
+    requestAnimationFrame(() => editorView?.focus());
     return {
       destroy() {
         editorView?.destroy();
@@ -576,6 +609,13 @@
         class="flex-1 overflow-y-auto px-8 py-2 cursor-text prose-container"
         on:click={(e) => {
           const target = e.target as HTMLElement;
+          const anchor = target.closest("a");
+          if (anchor?.href) {
+            e.preventDefault();
+            e.stopPropagation();
+            import("@tauri-apps/plugin-opener").then(({ openUrl }) => openUrl(anchor.href));
+            return;
+          }
           if (target.classList.contains("glossary-ref")) {
             e.stopPropagation();
             dispatch("navigateGlossary", target.dataset.term || "");

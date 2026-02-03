@@ -10,14 +10,14 @@
     "frontendDist": "../build"
   },
   "app": {
-    "macOSPrivateApi": true,
     "windows": [
       {
         "title": "mobius",
         "width": 800,
         "height": 600,
-        "decorations": false,
-        "transparent": true
+        "decorations": true,
+        "transparent": false,
+        "visible": false
       }
     ],
     "security": {
